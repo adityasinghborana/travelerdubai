@@ -1,15 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:travelerdubai/constants/contants.dart';
+import 'package:travelerdubai/view/Widgets%20/button.dart';
 
-class header extends StatelessWidget {
+class Header extends StatefulWidget {
+  @override
+  _HeaderState createState() => _HeaderState();
+}
+
+class _HeaderState extends State<Header> {
+  Map<String, bool> _isHoveredMap = {};
+
+  void _onHover(String title, bool hover) {
+    setState(() {
+      _isHoveredMap[title] = hover;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100, // Setting the height to 200px
+      height: 100,
       child: Center(
         child: ConstrainedBox(
-          constraints: BoxConstraints(
-              maxWidth: 1440), // Limiting to a common desktop width
+          constraints: BoxConstraints(maxWidth: 1440),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
             child: Row(
@@ -30,6 +45,7 @@ class header extends StatelessWidget {
                     _navItem("About Us", '/Aboutus'),
                     _navItem("Experiences", '/experiences'),
                     _navItem("Contact Us", '/contactus'),
+                    _navItem("rough", '/rough'),
                   ],
                 ),
                 // Authentication Buttons
@@ -37,12 +53,19 @@ class header extends StatelessWidget {
                   children: [
                     TextButton(
                       onPressed: () => Get.toNamed('/Login'),
-                      child: Text("Login"),
+                      child: Text(
+                        "Login",
+                        style: GoogleFonts.playfairDisplay(
+                            fontSize: 20, color: colorPrimary),
+                      ),
                     ),
                     SizedBox(width: 20), // Spacing between buttons
-                    ElevatedButton(
+                    InlineFlexButton(
+                      fontsize: 20,
+                      hpadding: 25,
+                      vpadding: 18,
                       onPressed: () => Get.toNamed('/Signup'),
-                      child: Text("Signup"),
+                      label: "Signup",
                     ),
                   ],
                 ),
@@ -55,12 +78,29 @@ class header extends StatelessWidget {
   }
 
   Widget _navItem(String title, String route) {
-    return InkWell(
-      onTap: () => Get.toNamed(route),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-            horizontal: 15), // Consistent spacing for nav items
-        child: Text(title),
+    _isHoveredMap.putIfAbsent(title, () => false);
+
+    return MouseRegion(
+      onEnter: (_) {
+        _onHover(title, true);
+      },
+      onExit: (_) {
+        _onHover(title, false);
+      },
+      child: InkWell(
+        hoverColor: Colors.transparent,
+        onTap: () => Get.toNamed(route),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Text(
+            title,
+            style: GoogleFonts.playfairDisplay(
+              fontSize: 20,
+              color:
+                  _isHoveredMap[title] ?? false ? colorPrimary : Colors.black,
+            ),
+          ),
+        ),
       ),
     );
   }

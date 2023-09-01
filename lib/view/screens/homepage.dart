@@ -1,33 +1,48 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travelerdubai/constants/contants.dart';
 import 'package:travelerdubai/controller/Homepagecontroller.dart';
-
+import 'package:travelerdubai/controller/mygridscetio_controller.dart';
 import 'package:travelerdubai/controller/tours_controller.dart';
+
+import 'package:travelerdubai/controller/toursstaticdata_controller.dart';
+import 'package:travelerdubai/demodata.dart/demodata.dart';
 import 'package:travelerdubai/view/Widgets%20/footer.dart';
-import 'package:travelerdubai/view/Widgets%20/formseection.dart';
+import 'package:travelerdubai/view/Widgets%20/formsection.dart';
+import 'package:travelerdubai/view/Widgets%20/gridsection.dart';
 import 'package:travelerdubai/view/Widgets%20/heroimage.dart';
+import 'package:travelerdubai/view/Widgets%20/tourlisttrial.dart';
 import 'package:travelerdubai/view/Widgets%20/tourscard.dart';
+import 'package:travelerdubai/view/screens/tourdeatilspage.dart';
 
 class Homepage extends StatelessWidget {
   final TourController tourController = Get.put(TourController());
   final HomeController homeController = Get.put(HomeController());
+  final MyGridSectionController controller = Get.put(MyGridSectionController());
+  final TourlistController tourlistController = Get.put(TourlistController());
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: colorwhite,
       height: Get.height - 100,
       child: ListView(
         children: [
           _buildHeroImageSection(context),
           _buildFormSection(context),
-          Obx(() =>
-              _buildSection("${homeController.formData.value?.heading2}")),
+          Obx(() {
+            return _buildSection("${homeController.formData.value?.heading2}");
+          }),
           Obx(() =>
               _buildSection("${homeController.formData.value?.heading3}")),
+          MyGridSectionWidget(),
           Obx(() =>
               _buildSection("${homeController.formData.value?.heading4}")),
+          Container(
+              color: Colors.white, height: Get.height * .55, child: tourlist()),
           buildFooter(),
         ],
       ),
@@ -38,7 +53,7 @@ class Homepage extends StatelessWidget {
     return Transform.translate(
       offset: Offset(0, 0),
       child: Container(
-        height: Get.height * .60,
+        height: Get.height * .70,
         color: Theme.of(context).colorScheme.secondary,
         child: HeroImageWidget(),
       ),
@@ -47,14 +62,16 @@ class Homepage extends StatelessWidget {
 
   Widget _buildFormSection(BuildContext context) {
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: 100, vertical: 50),
+      width: Get.width,
       height: Get.height * .60,
-      color: Theme.of(context).colorScheme.secondary,
       child: FormWidget(),
     );
   }
 
   Widget _buildSection(String heading) {
     return Container(
+      color: Colors.white,
       height: Get.height * .80,
       child: Column(
         children: [
@@ -74,10 +91,10 @@ class Homepage extends StatelessWidget {
           heading ?? "form could not be displayed, connect from backend",
           style: GoogleFonts.playfairDisplay(
             textStyle: TextStyle(
-              color: Colors.black,
-              letterSpacing: .5,
-              fontSize: 48,
-            ),
+                color: Colors.black,
+                letterSpacing: .5,
+                fontSize: 48,
+                fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -85,32 +102,31 @@ class Homepage extends StatelessWidget {
   }
 
   Widget _buildTourCards() {
+    //tourlistController.tours.value = demoTours ..shuffle(); //to update it to api list
+
     return Container(
-      height: 550,
+      color: Colors.white,
+      height: Get.height * .55,
       child: Obx(
         () {
           if (tourController.tourData.isEmpty) {
-            return _buildLoadingIndicator();
+            return CircularProgressIndicator(
+              color: colorPrimary,
+            );
+            // Tourcards(
+            //     //change this to progress loading indicator
+            //     tours: tourController.tourData.toList(),
+            //     onTap: (selectedTour) {
+            //       Get.to(TourDetailPage(selectedTour));
+            //     });
           } else {
             return Tourcards(
-              tours: tourController.tourData.toList()..shuffle(),
-            );
+                tours: tourlistController.tours.toList()..shuffle(),
+                onTap: (selectedTour) {
+                  Get.to(TourDetailPage(selectedTour));
+                });
           }
         },
-      ),
-    );
-  }
-
-  Widget _buildLoadingIndicator() {
-    return Container(
-      width: 1,
-      height: 4,
-      child: RotationTransition(
-        turns: AlwaysStoppedAnimation(0.25),
-        child: CircularProgressIndicator(
-          strokeWidth: 4,
-          valueColor: AlwaysStoppedAnimation<Color>(colorPrimary),
-        ),
       ),
     );
   }

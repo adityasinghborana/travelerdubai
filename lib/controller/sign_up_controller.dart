@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:travelerdubai/service/auth.dart';
-import 'package:travelerdubai/dashboard.dart';
+import 'package:travelerdubai/view/screens/homescreen.dart';
+import 'package:travelerdubai/view/screens/panel.dart';
 
 class SignupController extends GetxController {
   final AuthClass authClass = AuthClass();
@@ -13,7 +14,7 @@ class SignupController extends GetxController {
     try {
       await firebase_auth.FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
-      Get.offAll(Dashboard());
+      Get.toNamed('/panel');
     } catch (e) {
       Get.snackbar("Error", e.toString());
     }

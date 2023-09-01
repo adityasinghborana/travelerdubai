@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
 
 Widget buildFooter() {
   return Container(
-    height: Get.height * .90,
+    height: Get.height * 0.90,
     padding: const EdgeInsets.symmetric(vertical: 20.0),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -14,7 +13,7 @@ Widget buildFooter() {
           padding: const EdgeInsets.symmetric(vertical: 100.0),
           color: Colors.amber,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 100.0),
+            padding: EdgeInsets.symmetric(horizontal: 0.05 * Get.width),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [

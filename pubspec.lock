@@ -15,13 +15,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.9.0"
-  banner_carousel:
-    dependency: "direct main"
-    description:
-      name: banner_carousel
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.2.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -191,48 +184,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.4"
-  google_identity_services_web:
-    dependency: transitive
-    description:
-      name: google_identity_services_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.1"
-  google_sign_in:
-    dependency: "direct main"
-    description:
-      name: google_sign_in
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "6.1.4"
-  google_sign_in_android:
-    dependency: transitive
-    description:
-      name: google_sign_in_android
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "6.1.15"
-  google_sign_in_ios:
-    dependency: transitive
-    description:
-      name: google_sign_in_ios
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "5.6.2"
-  google_sign_in_platform_interface:
-    dependency: transitive
-    description:
-      name: google_sign_in_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.4.1"
-  google_sign_in_web:
-    dependency: transitive
-    description:
-      name: google_sign_in_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.12.0+2"
   http:
     dependency: transitive
     description:
@@ -359,13 +310,55 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.4"
-  quiver:
-    dependency: transitive
+  shared_preferences:
+    dependency: "direct main"
     description:
-      name: quiver
+      name: shared_preferences
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.2.1"
+    version: "2.2.0"
+  shared_preferences_android:
+    dependency: transitive
+    description:
+      name: shared_preferences_android
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.2.0"
+  shared_preferences_foundation:
+    dependency: transitive
+    description:
+      name: shared_preferences_foundation
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.3.3"
+  shared_preferences_linux:
+    dependency: transitive
+    description:
+      name: shared_preferences_linux
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.3.0"
+  shared_preferences_platform_interface:
+    dependency: transitive
+    description:
+      name: shared_preferences_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.3.0"
+  shared_preferences_web:
+    dependency: transitive
+    description:
+      name: shared_preferences_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.2.0"
+  shared_preferences_windows:
+    dependency: transitive
+    description:
+      name: shared_preferences_windows
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.3.0"
   sky_engine:
     dependency: transitive
     description: flutter
