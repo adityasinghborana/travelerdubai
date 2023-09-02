@@ -10,10 +10,20 @@ class TourController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchTourData(); // Fetch data when the app starts
+    final Map<String, dynamic> arguments = Get.arguments;
+    int countryId = arguments['countryId'];
+    int cityId = arguments['cityId'];
+    int tourId = arguments['tourId'];
+    int contractId = arguments['contractId'];
+    String travelDate = arguments['currentDate'];
+
+    // Call fetchTourDetails with the retrieved arguments
+    fetchTourDetails(countryId, cityId, tourId, contractId,
+        travelDate); // Fetch data when the app starts
   }
 
-  Future<void> fetchTourData() async {
+  Future<void> fetchTourDetails(int countryId, int cityId, int tourId,
+      int contractId, String travelDate) async {
     try {
       final dio = Dio();
       dio.options.headers = {
@@ -22,20 +32,23 @@ class TourController extends GetxController {
         'Content-Type': 'application/json',
       };
       final response = await dio.post(
-          "https://sandbox.raynatours.com/api/Tour/tourStaticDataById",
-          data: {
-            "countryId": 13063,
-            "cityId": 14777,
-            "tourId": 4696,
-            "contractId": 300,
-            "travelDate": "08-13-2023",
-          });
+        "https://sandbox.raynatours.com/api/Tour/tourStaticDataById",
+        data: {
+          "countryId": countryId,
+          "cityId": cityId,
+          "tourId": tourId,
+          "contractId": contractId,
+          "travelDate": travelDate,
+        },
+      );
 
       if (response.statusCode == 200) {
         final tourDataList = response.data["result"] as List;
         if (tourDataList.isNotEmpty) {
           final tourDetails = TourModel.fromJson(tourDataList.first);
           tourData.value = [tourDetails];
+          print(response);
+          print("tourdetailslist = $tourDetails");
         } else {
           tourData.value = [];
         }

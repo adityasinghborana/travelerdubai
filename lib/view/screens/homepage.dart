@@ -19,7 +19,7 @@ import 'package:travelerdubai/view/Widgets%20/tourscard.dart';
 import 'package:travelerdubai/view/screens/tourdeatilspage.dart';
 
 class Homepage extends StatelessWidget {
-  final TourController tourController = Get.put(TourController());
+  // final TourController tourController = Get.put(TourController());
   final HomeController homeController = Get.put(HomeController());
   final MyGridSectionController controller = Get.put(MyGridSectionController());
   final TourlistController tourlistController = Get.put(TourlistController());
@@ -102,29 +102,22 @@ class Homepage extends StatelessWidget {
   }
 
   Widget _buildTourCards() {
-    //tourlistController.tours.value = demoTours ..shuffle(); //to update it to api list
+    final tourlist = tourlistController.tours.value
+      ..shuffle(); //to update it to api list
 
     return Container(
       color: Colors.white,
       height: Get.height * .55,
       child: Obx(
         () {
-          if (tourController.tourData.isEmpty) {
+          if (tourlistController.tours.isEmpty) {
             return CircularProgressIndicator(
               color: colorPrimary,
             );
-            // Tourcards(
-            //     //change this to progress loading indicator
-            //     tours: tourController.tourData.toList(),
-            //     onTap: (selectedTour) {
-            //       Get.to(TourDetailPage(selectedTour));
-            //     });
           } else {
             return Tourcards(
-                tours: tourlistController.tours.toList()..shuffle(),
-                onTap: (selectedTour) {
-                  Get.to(TourDetailPage(selectedTour));
-                });
+              tours: tourlist,
+            );
           }
         },
       ),

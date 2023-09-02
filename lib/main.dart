@@ -5,6 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/controller/adminpanelcontroller/adminpanel_controller.dart';
+
 import 'package:travelerdubai/view/screens/homescreen.dart';
 import 'package:travelerdubai/view/screens/Contactus.dart';
 import 'package:travelerdubai/view/screens/Aboutus.dart';
@@ -17,7 +18,8 @@ import 'package:travelerdubai/view/screens/panel%20views/dashboardpage.dart';
 import 'package:travelerdubai/view/screens/panel%20views/settings.dart';
 import 'package:travelerdubai/view/screens/panel%20views/userspage.dart';
 import 'package:travelerdubai/view/screens/panel.dart';
-import 'package:travelerdubai/view/Widgets%20/featurewidget.dart';
+
+import 'package:travelerdubai/view/screens/tourdeatilspage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -119,6 +121,12 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/panel',
           page: () => AdminPanel(),
+          transition: Transition.leftToRightWithFade,
+          transitionDuration: Duration(milliseconds: 500),
+        ),
+        GetPage(
+          name: '/tour_details',
+          page: () => TourDetailPage(),
           transition: Transition.leftToRightWithFade,
           transitionDuration: Duration(milliseconds: 500),
         ),
